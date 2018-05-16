@@ -5,6 +5,10 @@ Created on Wed May 16 10:43:24 2018
 @author: mlu
 """
 
+import pandas as pd
+import numpy as np
+from sklearn import linear_model
+
 path_to_file = "./data/pml2admission.csv"
 data = pd.read_csv(path_to_file)
 data.head()
