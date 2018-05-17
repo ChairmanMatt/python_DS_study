@@ -21,7 +21,7 @@ iris_x = iris.data[:, pair]
 iris_y = iris.target
 
 from sklearn import discriminant_analysis
-gnb = discriminant_analysis.LinearDiscriminantAnalysis(C=1e4)
+gnb = discriminant_analysis.LinearDiscriminantAnalysis()
 
 #### Your code here
 
