@@ -16,3 +16,4 @@ select2 = fs.SelectKBest(fs.f_regression, 3).fit_transform(X, y.ravel())
 
 print(select2[0])
 print(X[0])
+
