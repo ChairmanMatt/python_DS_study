@@ -16,11 +16,12 @@ from sklearn import feature_selection
 linreg_model = linear_model.LinearRegression()
 
 train = pd.read_csv('data/Wholesale customers data.csv')
-x = train.iloc[:, 2:7]
-y = np.ravel(train.iloc[:, 0:2])
+x = train.iloc[:, 3:7]
+y = train.iloc[:, 2]
 
 #x = feature_selection.SelectKBest(feature_selection.chi2, 20).fit_transform(x, y)
-x = feature_selection.RFE(linear_model.LinearRegression(), 20).fit_transform(x, y)
+#x = feature_selection.RFE(linear_model.LinearRegression(), 20).fit_transform(x, y)
+
 linreg_model.fit(x, y)
 
 print(linreg_model.score(x, y))

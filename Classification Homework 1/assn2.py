@@ -17,23 +17,31 @@ lda = discriminant_analysis.LinearDiscriminantAnalysis()
 
 import sklearn.feature_selection as fs
 
-skb = fs.SelectKBest(fs.f_regression, 3)
+import sklearn.model_selection as ms
+
+#skb = fs.SelectKBest(fs.f_regression, 3)
+
 
 numfeatures = 57
 ## separate the predictors and response in the training data set
 x = pd.DataFrame(train.iloc[:, 0:57])
 y = np.ravel(train.iloc[:, 57:58])
-skb.fit_transform(x, y)
 
 
+import sklearn.linear_model as lm
+
+skb = fs.RFE(, step=1)
+x = skb.fit_transform(x, y)
+
+lda.fit(x, y)
 ## separate the predictors and response in the test data set
-x2 = pd.DataFrame(test.iloc[:, 0:57])
-y2 = np.ravel(test.iloc[:, 57:58])
-x2 = skb.transform(x2)
+#x2 = pd.DataFrame(test.iloc[:, 0:57])
+#y2 = np.ravel(test.iloc[:, 57:58])
+#x2 = skb.transform(x2)
    
 #mnb.fit(x, y)
 
-lda.fit(x, y)
+#lda.fit(x, y)
 
 #print("MNB TRAIN: " + str(mnb.score(x, y)))
 #print("MNB TEST: " + str(mnb.score(x2, y2)))
