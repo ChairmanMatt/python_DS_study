@@ -43,11 +43,38 @@ svm_model.fit(x_train, y_train)
 #plt.scatter(c_values, test_scores)
 #plt.show
 
-from sklearn import tree
-tree_model = tree.DecisionTreeClassifier()
+#from sklearn import tree
+##tree_model = tree.DecisionTreeClassifier()
 
-grid_para_tree = {'criterion': ['gini', 'entropy'], 'max_depth': range(1, 31)}
-grid_search = ms.GridSearchCV(tree_model, param_grid=grid_para_tree, scoring='accuracy', cv=3, n_jobs=1)
-grid_search.fit(x_train, y_train)
-print(grid_search.best_params_)
-print(grid_search.feature_importances)
+##grid_para_tree = {'criterion': ['gini', 'entropy'], 'max_depth': range(1, 31)}
+##grid_dt_search = ms.GridSearchCV(tree_model, param_grid=grid_para_tree, scoring='accuracy', cv=3, n_jobs=1)
+##grid_dt_search.fit(x_train, y_train)
+##print(grid_dt_search.best_params_)
+##tree_model.set_params(criterion="gini", max_depth=4)
+##tree_model.fit(x_train, y_train)
+##feature_importance = np.array(list(zip(data.columns.values, tree_model.feature_importances_)), 
+##                              dtype=[('feature', 'S10'), ('importance', 'float')])
+##most_important = np.sort(feature_importance, order="importance")[::-1]
+##for i in most_important[0:5]:
+##    print(i)
+
+grid_para_forest = {
+    'criterion': ['gini', 'entropy'],
+    'max_depth': range(1, 31),
+    'n_estimators': range(10, 110, 10)
+}
+
+from sklearn import ensemble
+forest_model = ensemble.RandomForestClassifier()
+
+grid_rf_search = ms.GridSearchCV(forest_model, grid_para_forest, cv=3, n_jobs=1)
+grid_rf_search.fit(x_train, y_train)
+print(grid_rf_search.best_params_)
+forest_model.set_params(criterion='gini', max_depth=3, n_estimators=80)
+forest_model.fit(x_train, y_train)
+print(forest_model.score(x_test, y_test))
+feature_importance = np.array(list(zip(data.columns.values, forest_model.feature_importances_)), 
+                              dtype=[('feature', 'S10'), ('importance', 'float')])
+most_important = np.sort(feature_importance, order="importance")[::-1]
+for i in most_important[0:5]:
+    print(i)
